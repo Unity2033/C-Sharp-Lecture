@@ -1,104 +1,98 @@
 ﻿using System;
-using System.Data.SqlTypes;
-using System.Text;
 
 namespace ConsoleGame
 {
-    internal class Program
+    // 오버라이딩
+    // 상위 클래스에 있는 메소드를 하위 클래스에서
+    // 재정의하여 사용하는 기능입니다.
+    class Animal
     {
-        class Parent
+        public void Sound()
         {
-            int age;
-            protected int money;   
-        
-            // 생성자
-            // 클래스가 인스턴스가 생성되는 시점에서 
-            // 자동으로 호출되는 특수한 멤버 메소드입니다.
-            public Parent(string name) 
-            {
-                Console.WriteLine(name + "Class 생성");
-            }
-
-            protected void Information()
-            {
-                Console.WriteLine("Parent Class 입니다.");
-            }
-
+            Console.WriteLine("동물의 울음 소리");
         }
 
-        // Child 클래스가 Parent 클래스를 상속합니다.
-        class Child : Parent
+        // 가상 함수
+        // 상속하는 클래스 내에서 같은 형태의 함수로 재정의될 수 있는
+        // 함수입니다.
+        virtual public void Action()
         {
-            // 기본 생성자
-            // 생성자가 없을 때 컴파일러가 자동으로 생성해주는 
-            // 생성자입니다.
+            Console.WriteLine("동물의 행동");
+        }
+    }
 
-            // base()
-            // 상위 클래스의 생성자를 호출하는 메소드입니다.
-            // Parent("") == base("")
-            public Child() : base(" ")
-            { 
-                Console.WriteLine("Child Class 생성");
-            }
-
-            // int age
-            int money;
-
-            public void Function()
-            {
-                // base는 상위 클래스를 가리키는 포인터입니다.
-                // this는 자기 자신을 가리키는 포인터입니다.
-                base.money += 1;  // 상위 클래스 money 변수
-                this.money += 10; // 하위 클래스 money 변수
-
-                // base 키워드와 this 키워드를 사용하지 않고 
-                // 이름이 겹치는 멤버 변수를 호출했다면 this 포인터가 
-                // 우선권을 가지게 됩니다.
-                Console.WriteLine("money의 값 " + money);
-            }
+    class Dog : Animal
+    {
+        // 메소드 숨기기
+        // 상위 클래스로부터 상속 받은 멤버와 이름은
+        // 동일하지만, 완전히 다른 새로운 메소드를 정의할 때 
+        // 사용하는 키워드입니다.
+        new public void Sound()
+        {
+            Console.WriteLine("멍~멍~");
         }
 
-        // 메소드의 오버로딩
-        // 같은 이름의 함수를 매개 변수의 자료형과 매개변수의
-        // 수로 구분하여 여러 개를 선언할 수 있는 기능입니다.
-
-        class Vector
-        { 
-            public void Coordinate(int x, int y)
-            {
-                Console.WriteLine("int x의 값 : " + x + " int y의 값 : " + y);
-            }
-
-            public void Coordinate(float x, float y)
-            {
-                Console.WriteLine("float x의 값 : " + x + " float y의 값 : " + y);
-            }
-        
-            public void Coordinate(float x, float y, float z)
-            {
-                Console.WriteLine("x의 값 : " + x + "y의 값 : " + y + "z의 값 : "+ z);
-
-            }
+        // 오버라이딩
+        override public void Action()
+        {
+            Console.WriteLine("강아지의 행동");
         }
 
+        public void Tracking()
+        {
+            Console.WriteLine("강아지가 추적합니다.");
+        }
+    }
 
+    internal class Program
+    {   
+        // 선택적 매개변수
+        // 기본 값을 가지는 매개변수이며, 선택적 매개변수로
+        // 선언된 매개변수는 인수를 전달하지 않아도 됩니다.
+        static void Function(int x, int y = 100)
+        {
+            // 선택적 매개변수는 인수를 전달할 때 왼쪽에서부터
+            // 값이 저장되기 때문에 오른쪽에서부터 선택적 매개변수를
+            // 선언해주어야 합니다.
+            Console.WriteLine("x의 값 : " + x);
+            Console.WriteLine("y의 값 : " + y);
+        }
+
+        // 명명된 매개변수
+        // 메소드를 호출할 때 필요한 매개변수 이름을 직접
+        // 지정해서 사용하는 매개변수입니다.
+        static void Information(string name, int age, char blood)
+        {
+            Console.WriteLine("name : " + name);
+            Console.WriteLine("age : " + age); 
+            Console.WriteLine("blood : " + blood);
+        }
 
         static void Main(string[] args)
         {
-            // 상속
-            // 상위 클래스의 속성을 하위 클래스가
-            // 사용할 수 있도록 설정해주는 기능입니다.
-            Parent parent = new Parent("Parent");
+            #region 메소드 숨기기 & 오버라이딩
+            // Animal animal = new Animal();
+            // animal.Action(); // 동물의 행동
+            // animal.Sound();  // 동물의 울음소리
 
-            Child child = new Child();
-            child.Function();
+            // Dog dog = new Dog();
+            // dog.Action(); // 강아지의 행동
+            // dog.Sound();  // 멍~멍~
 
-            Vector vector = new Vector();
-            vector.Coordinate(10.5f, 20.5f);
+            // Animal parent = new Dog();
+            // 런타임 중에 어떤 함수를 호출할 지 결정하는 행위 
+            // parent.Action(); // 강아지의 행동
+            // parent.Sound(); // 동물의 울음소리
+            #endregion
 
-            vector.Coordinate(10, 20);
+            // 선택적 매개변수
+            Function(10); // x(10), y(100) 
+            Function(50,500); // x(50), y(500)
 
-
+            // 명명된 매개변수
+            Information("kim",10,'O');
+       
+            Information(age : 20, blood : 'A', name : "son"); 
         }
     }
 }
