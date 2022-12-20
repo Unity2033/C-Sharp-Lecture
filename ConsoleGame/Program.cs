@@ -2,97 +2,106 @@
 
 namespace ConsoleGame
 {
-    // 오버라이딩
-    // 상위 클래스에 있는 메소드를 하위 클래스에서
-    // 재정의하여 사용하는 기능입니다.
-    class Animal
+    // 인터페이스
+    // 클래스들이 구현해야하는 동작을 지정하는 용도로
+    // 사용되는 추상 자료형입니다.
+
+    interface IMonitor
+    {     
+        // 인터페이스는 메소드를 선언만 할 수 있습니다.
+        // 인터페이스의 기본 접근 지정자는 public으로 설정됩니다.
+        void Power();
+    }
+
+    interface IMouse
     {
-        public void Sound()
+        // 인터페이스는 멤버 변수를 가질 수 없습니다.
+        // 인터페이스는 프로퍼티를 가질 수 있습니다.
+        // int value;
+        // int Damage { set; get; }
+        void Click();
+    }
+
+    // C#에서는 다중 상속이 지원되지 않습니다.
+    class Computer : IMonitor, IMouse
+    {
+        public void Click()
         {
-            Console.WriteLine("동물의 울음 소리");
+            Console.WriteLine("마우스 클릭");
         }
 
-        // 가상 함수
-        // 상속하는 클래스 내에서 같은 형태의 함수로 재정의될 수 있는
-        // 함수입니다.
-        virtual public void Action()
+        public void Power()
         {
-            Console.WriteLine("동물의 행동");
+            Console.WriteLine("모니터 전원 On");
         }
     }
 
-    class Dog : Animal
+
+    interface IObject
     {
-        // 메소드 숨기기
-        // 상위 클래스로부터 상속 받은 멤버와 이름은
-        // 동일하지만, 완전히 다른 새로운 메소드를 정의할 때 
-        // 사용하는 키워드입니다.
-        new public void Sound()
-        {
-            Console.WriteLine("멍~멍~");
-        }
+        void HealthManager();      
+    }
 
-        // 오버라이딩
-        override public void Action()
-        {
-            Console.WriteLine("강아지의 행동");
-        }
+    class Player : IObject
+    {
+        public int hp;
 
-        public void Tracking()
+        public void HealthManager()
         {
-            Console.WriteLine("강아지가 추적합니다.");
+            hp -= 50;
+            Console.WriteLine("Player의 체력이 감소되었습니다. hp : " + hp);
         }
+    }
+
+    class Monster : IObject
+    {
+        public int hp;
+
+        public void HealthManager()
+        {
+            hp -= 25;
+            Console.WriteLine("Monster의 체력이 감소되었습니다. hp : " + hp);
+        }
+    }
+
+    class Damage // <- 데미지를 처리하는 클래스입니다.
+    {
+        public void DecreaseHP(IObject iobject)
+        {
+            iobject.HealthManager();
+        }   
     }
 
     internal class Program
-    {   
-        // 선택적 매개변수
-        // 기본 값을 가지는 매개변수이며, 선택적 매개변수로
-        // 선언된 매개변수는 인수를 전달하지 않아도 됩니다.
-        static void Function(int x, int y = 100)
-        {
-            // 선택적 매개변수는 인수를 전달할 때 왼쪽에서부터
-            // 값이 저장되기 때문에 오른쪽에서부터 선택적 매개변수를
-            // 선언해주어야 합니다.
-            Console.WriteLine("x의 값 : " + x);
-            Console.WriteLine("y의 값 : " + y);
-        }
-
-        // 명명된 매개변수
-        // 메소드를 호출할 때 필요한 매개변수 이름을 직접
-        // 지정해서 사용하는 매개변수입니다.
-        static void Information(string name, int age, char blood)
-        {
-            Console.WriteLine("name : " + name);
-            Console.WriteLine("age : " + age); 
-            Console.WriteLine("blood : " + blood);
-        }
-
+    {
         static void Main(string[] args)
         {
-            #region 메소드 숨기기 & 오버라이딩
-            // Animal animal = new Animal();
-            // animal.Action(); // 동물의 행동
-            // animal.Sound();  // 동물의 울음소리
+            #region 인터페이스
 
-            // Dog dog = new Dog();
-            // dog.Action(); // 강아지의 행동
-            // dog.Sound();  // 멍~멍~
+            // Computer computer = new Computer();
+            // computer.Power();
+            // computer.Click();
 
-            // Animal parent = new Dog();
-            // 런타임 중에 어떤 함수를 호출할 지 결정하는 행위 
-            // parent.Action(); // 강아지의 행동
-            // parent.Sound(); // 동물의 울음소리
+            // 인터페이스는 객체로 인스턴스할 수 없습니다.
+            // IMouse mouse = new IMouse();
+
+            // 인터페이스는 참조 변수로 사용할 수 있습니다.
+            // IMouse lg = new Computer();
+            // lg.Click();
             #endregion
 
-            // 선택적 매개변수
-            Function(10); // x(10), y(100) 
-            Function(50,500); // x(50), y(500)
+            Monster goblin = new Monster(); // 고블린 (몬스터)
+            goblin.hp = 100;                // 고블린 체력 : 100
 
-            // 명명된 매개변수
-            Information("kim",10,'O');
-       
-            Information(age : 20, blood : 'A', name : "son"); 
+            Monster slime = new Monster(); // 슬라임 (몬스터)
+           
+            Player player = new Player(); // 플레이어 (플레이어)
+            player.hp = 100;              // 플레이어 체력 : 100
+
+            Damage damage = new Damage();
+            damage.DecreaseHP(goblin);
+            damage.DecreaseHP(player);
+
         }
     }
 }
