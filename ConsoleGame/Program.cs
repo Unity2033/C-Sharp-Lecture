@@ -1,45 +1,31 @@
 ﻿using System;
-using System.Threading;
 
 namespace ConsoleGame
 {
-    class Watch
-    { 
-        // readonly : 런타임 시점에 결정되는 상수
-        // 상수를 초기화하지 않아도 사용할 수 있습니다.
-        readonly int count = 50;
+    delegate void Delegate();
 
-        public Watch() // 생성자
+    class IPhone
+    {
+        public int price;
+        public int version;
+
+        // 얕은 복사
+        /*
+        public IPhone(int price, int version)
         {
-            // 생성자에서 단 한번만 값을 초기화할 수 있습니다.
-            count = 100;
-            Console.WriteLine("count의 값 : " + count);
+            this.price = price;
+            this.version = version;
         }
-    }
+        */
 
-    // 델리게이트 선언
-    // delegate [반환형] [델리게이트 이름] (매개변수)
-    delegate void Calculator(int x, int y);
-
-    // 델리게이트는 메소드의 반환형과 매개 변수의 타입이 일치해야 사용할 수 있습니다.
-    class Weapon
-    { 
-        public void Stat(int x, int y)
+        // 깊은 복사
+        public IPhone DeepCopy()
         {
-            int result = x + y; 
-            Console.WriteLine("Stat 메소드의 값 : " + result);     
-        }
+            IPhone newIPhone = new IPhone();
+            newIPhone.price = this.price;
+            newIPhone.version = this.version;
 
-        public void Price(int x, int y)
-        {
-            int result = x - y;
-            Console.WriteLine("Price 메소드의 값 : " + result);
-        }
-
-        public void Damage(int x, int y)
-        {
-            int result = x * y;
-            Console.WriteLine("Damage 메소드의 값 : " + result);
+            return newIPhone; 
         }
     }
 
@@ -47,58 +33,57 @@ namespace ConsoleGame
     {
         static void Main(string[] args)
         {
-            #region 상수
-            // 프로그램이 실행되는 동안 변하지 않는 값
+            #region 무명 형식 
+            // 이름이 없는 데이터 형식입니다.
 
-            // const : 컴타임 시점에 결정되는 상수
-            // 상수를 선언과 동시에 초기화를 해주어야 합니다.
+            // 임시 변수가 필요할 때 사용하는 형식입니다.
+            // 임시 변수 : 임시로 생성해서 사용 후, 더 이상 사용되지 않는 변수
 
-            // pi 3.14
-            // gravity 9.81
+            // var temp = new { age = 40, name = "KIM" };
 
-            // const int data = 50; 
-            // const int value = 10;
+            // 무명 형식으로 생성된 인스턴스는 읽기 전용이기 때문에
+            // 값을 변경할 수 없습니다.
+            // temp.age = 30;
 
-            // Console.WriteLine("value의 값 : " + value);
-            // Watch watch = new Watch();
+            // Console.WriteLine("temp의 age : " + temp.age + " temp의 name : " + temp.name);
             #endregion
 
-            #region 델리게이트(대리자)
-            // 메서드를 대신해서 호출하는 기법입니다.  
-            //Weapon weapon = new Weapon();
+            #region 무명 메소드
+            // 단순한 명령어 구문으로 구성된 메소드를 정의하지 않고
+            // 델리게이트를 사용하여 1회용으로 사용하는 메소드입니다.
+            // Delegate value;
 
-            // 델리게이트 정의
-            //Calculator calculator;
+            // value = () => {  Console.WriteLine("로그인을 실패하였습니다."); };
 
-            // 델리게이트 변수에 Stat의 주소를 저장합니다.
-            // calculator = weapon.Stat;
-            //calculator(10, 20);
+            // Console.WriteLine("비밀번호가 틀렸습니다.");
 
-            //calculator = weapon.Price;
-            //calculator(10, 20);
-
-            //calculator = weapon.Damage;
-            //calculator(10, 20);
+            // value();
             #endregion
 
-            // 델리게이트 체인
-            // 하나의 델리게이트에 여러 개의 메소드를 연결시키는 기법입니다.
+            // 얕은 복사
+            // 객체를 복사할 때 주소 값을 복사하여
+            // 같은 메모리를 가리키는 복사입니다.
+            IPhone se1 = new IPhone();
+            se1.price = 20000;
+            se1.version = 1;
 
-            Weapon weapon = new Weapon();
+            IPhone se2 = se1.DeepCopy();
 
-            Calculator calculator;
+            
+            se2.price = 100000;
 
-            // 델리게이트 비어있는 상태 메소드를 추가할 수 없습니다.
-            calculator = weapon.Stat;
-            calculator += weapon.Price;
-            calculator += weapon.Damage;
+            Console.WriteLine("se1의 버전 : " + se1.version);
+            Console.WriteLine("se1의 가격 : " + se1.price);
 
-            calculator(10, 20);
+            Console.WriteLine("se2의 버전 : " + se2.version);
+            Console.WriteLine("se2의 가격 : " + se2.price);
 
-            // 델리게이트에 등록된 메소드를 뺍니다.
-            calculator -= weapon.Damage;
+            // 깊은 복사
+            // 객체를 복사할 때, 참조 값이 아닌 인스턴스
+            // 자체를 새로 복사하여 서로 다른 메모리를
+            // 생성하는 복사입니다.
 
-            calculator(10, 20);
+
         }
     }
 }

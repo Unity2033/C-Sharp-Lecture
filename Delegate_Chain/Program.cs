@@ -1,4 +1,4 @@
-﻿namespace Delegate_Chain
+﻿namespace Interface
 {
     // 인터페이스
     // 클래스들이 구현해야하는 동작을 지정하는 용도로
