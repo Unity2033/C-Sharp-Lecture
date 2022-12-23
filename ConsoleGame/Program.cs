@@ -2,86 +2,90 @@
 
 namespace ConsoleGame
 {
-    delegate void Delegate();
-
-    class IPhone
+    // 추상 클래스 선언
+    abstract class Equipment
     {
-        public int price;
-        public int version;
+        abstract public void Effect();
 
-        // 얕은 복사
-        /*
-        public IPhone(int price, int version)
+        public void Durability(int value)
         {
-            this.price = price;
-            this.version = version;
-        }
-        */
-
-        // 깊은 복사
-        public IPhone DeepCopy()
-        {
-            IPhone newIPhone = new IPhone();
-            newIPhone.price = this.price;
-            newIPhone.version = this.version;
-
-            return newIPhone; 
+            Console.WriteLine("내구도 : " + value);
         }
     }
 
+    class Weapon : Equipment
+    {
+        public override void Effect()
+        {
+            Console.WriteLine("공격력 증가");
+        }
+
+        new public void Durability(int value)
+        {
+            Console.WriteLine("무기의 내구도 : " + value);
+        }
+    }
+
+    class Shield : Equipment
+    {
+        public override void Effect()
+        {
+            Console.WriteLine("방어력 증가");
+        }
+    }
+
+    delegate void CallBack();
+
     internal class Program
     {
+        static void Button(CallBack callBack)
+        {
+            callBack();
+        }
+
+        static void UserInterface()
+        {
+            Console.WriteLine("Character Stat Window");
+        }
+
         static void Main(string[] args)
         {
-            #region 무명 형식 
-            // 이름이 없는 데이터 형식입니다.
+            #region 추상 클래스란?
+            // 하나 이상의 추상 메소드를 포함하고 있는
+            // 클래스입니다.
+            // Weapon weapon = new Weapon();
+            // weapon.Durability(100);
+            // weapon.Effect();
 
-            // 임시 변수가 필요할 때 사용하는 형식입니다.
-            // 임시 변수 : 임시로 생성해서 사용 후, 더 이상 사용되지 않는 변수
-
-            // var temp = new { age = 40, name = "KIM" };
-
-            // 무명 형식으로 생성된 인스턴스는 읽기 전용이기 때문에
-            // 값을 변경할 수 없습니다.
-            // temp.age = 30;
-
-            // Console.WriteLine("temp의 age : " + temp.age + " temp의 name : " + temp.name);
+            // 추상 클래스는 다중 상속이 되지 않습니다.
+            // Shield shield = new Shield();
+            // shield.Effect();
             #endregion
 
-            #region 무명 메소드
-            // 단순한 명령어 구문으로 구성된 메소드를 정의하지 않고
-            // 델리게이트를 사용하여 1회용으로 사용하는 메소드입니다.
-            // Delegate value;
+            // console 입력
 
-            // value = () => {  Console.WriteLine("로그인을 실패하였습니다."); };
+            // string name;
+            // name = Console.ReadLine(); 
+            // Console.WriteLine("name : " + name);
 
-            // Console.WriteLine("비밀번호가 틀렸습니다.");
+            // string.Format()
+            // 지정된 형식에 따라 개체의 값을 문자열로 변환하여 다른 문자열에
+            // 삽입하는 메서드입니다.
 
-            // value();
-            #endregion
+            // {첨자, 맞춤 : 서식 문자열}                     
+            // string data = string.Format("{0}, {1}, {2}", 10, 5.59, 'A');
+            // Console.WriteLine(data);
 
-            // 얕은 복사
-            // 객체를 복사할 때 주소 값을 복사하여
-            // 같은 메모리를 가리키는 복사입니다.
-            IPhone se1 = new IPhone();
-            se1.price = 20000;
-            se1.version = 1;
+            // 문자열 보간
+            // int damage = 10;
+            // int critical = 33;
+            // Console.WriteLine($"{damage} + {critical} = {damage + critical}" );
 
-            IPhone se2 = se1.DeepCopy();
-
-            
-            se2.price = 100000;
-
-            Console.WriteLine("se1의 버전 : " + se1.version);
-            Console.WriteLine("se1의 가격 : " + se1.price);
-
-            Console.WriteLine("se2의 버전 : " + se2.version);
-            Console.WriteLine("se2의 가격 : " + se2.price);
-
-            // 깊은 복사
-            // 객체를 복사할 때, 참조 값이 아닌 인스턴스
-            // 자체를 새로 복사하여 서로 다른 메모리를
-            // 생성하는 복사입니다.
+            // 콜백 함수
+            // 다른 함수의 인수로써 넘겨진 후 특정 이벤트에 의해 호출되는 
+            // 함수입니다.
+            Button(UserInterface);
+            // 시스템에 의해 호출 시점이 결정되는 함수
 
 
         }
