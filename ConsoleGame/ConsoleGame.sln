@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Anonymous", "..\Anonymous\A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abstract_Class", "..\Abstract_Class\Abstract_Class.csproj", "{E7462C86-B32C-4DE9-B8FB-2271C0D68754}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generic_Programing", "..\Generic_Programing\Generic_Programing.csproj", "{FF52C1AB-E122-4453-99B1-53CA39B9156B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generic_Programing", "..\Generic_Programing\Generic_Programing.csproj", "{FF52C1AB-E122-4453-99B1-53CA39B9156B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataStruct", "..\DataStruct\DataStruct.csproj", "{D5C3F441-C961-4BBC-86C3-1F9A9CEF6897}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,10 @@ Global
 		{FF52C1AB-E122-4453-99B1-53CA39B9156B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF52C1AB-E122-4453-99B1-53CA39B9156B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF52C1AB-E122-4453-99B1-53CA39B9156B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5C3F441-C961-4BBC-86C3-1F9A9CEF6897}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5C3F441-C961-4BBC-86C3-1F9A9CEF6897}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5C3F441-C961-4BBC-86C3-1F9A9CEF6897}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5C3F441-C961-4BBC-86C3-1F9A9CEF6897}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
