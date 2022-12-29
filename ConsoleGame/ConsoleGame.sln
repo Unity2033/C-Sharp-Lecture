@@ -25,7 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Abstract_Class", "..\Abstra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Generic_Programing", "..\Generic_Programing\Generic_Programing.csproj", "{FF52C1AB-E122-4453-99B1-53CA39B9156B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataStruct", "..\DataStruct\DataStruct.csproj", "{D5C3F441-C961-4BBC-86C3-1F9A9CEF6897}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataStruct", "..\DataStruct\DataStruct.csproj", "{D5C3F441-C961-4BBC-86C3-1F9A9CEF6897}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sealed", "..\Sealed\Sealed.csproj", "{9D43EED7-70C0-489C-B917-62BC59775824}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{D5C3F441-C961-4BBC-86C3-1F9A9CEF6897}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5C3F441-C961-4BBC-86C3-1F9A9CEF6897}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5C3F441-C961-4BBC-86C3-1F9A9CEF6897}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D43EED7-70C0-489C-B917-62BC59775824}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D43EED7-70C0-489C-B917-62BC59775824}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D43EED7-70C0-489C-B917-62BC59775824}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D43EED7-70C0-489C-B917-62BC59775824}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
